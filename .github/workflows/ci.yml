@@ -19,11 +19,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: true # or 'recursive'
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
+
+      - name: List repository files
+        run: find src -type f
 
       - name: Restore
         run: dotnet restore
