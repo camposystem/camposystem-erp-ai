@@ -12,5 +12,5 @@
     <Project Path="tests/CampoSystem.ErpAI.IntegrationTests/CampoSystem.ErpAI.IntegrationTests.csproj" />
     <Project Path="tests/CampoSystem.ErpAI.UnitTests/CampoSystem.ErpAI.UnitTests.csproj" />
   </Folder>
-  
+
 </Solution>
