@@ -1,4 +1,5 @@
 <Solution>
+
   <Folder Name="/src/">
     <Project Path="src/CampoSystem.ErpAI.Api/CampoSystem.ErpAI.Api.csproj" />
     <Project Path="src/CampoSystem.ErpAI.Application/CampoSystem.ErpAI.Application.csproj" />
@@ -6,8 +7,10 @@
     <Project Path="src/CampoSystem.ErpAI.Infrastructure/CampoSystem.ErpAI.Infrastructure.csproj" />
     <Project Path="src/CampoSystem.ErpAI.SharedKernel/CampoSystem.ErpAI.SharedKernel.csproj" />
   </Folder>
+
   <Folder Name="/tests/">
     <Project Path="tests/CampoSystem.ErpAI.IntegrationTests/CampoSystem.ErpAI.IntegrationTests.csproj" />
     <Project Path="tests/CampoSystem.ErpAI.UnitTests/CampoSystem.ErpAI.UnitTests.csproj" />
   </Folder>
+  
 </Solution>
