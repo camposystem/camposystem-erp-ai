@@ -1,9 +1,8 @@
-# ADR-0001 – Arquitetura Inicial do CampoSystem ERP AI
 
+# ADR-0001 – Arquitetura Inicial 
 - **Status:** Aceita
-- **Data:** 22/07/2026
-- **Autor:** Alexandre Campos
-
+- **Data:** 23/07/2026
+- **Autor:** Alexandre de Campos
 ---
 
 ## Contexto
@@ -20,9 +19,17 @@ Diante desses objetivos, foi necessário definir uma arquitetura que equilibrass
 
 ---
 
+
+## Escopo 
+Esta ADR registra apenas as decisões arquiteturais iniciais da solução.
+
+Tecnologias e decisões futuras serão documentadas em ADRs específicas.
+
+---
 ## Decisão
 
-A solução será implementada inicialmente como um **Modular Monolith**, seguindo princípios da **Clean Architecture** e organizando as funcionalidades por **Vertical Slice Architecture**.
+A solução será implementada inicialmente como um **Modular Monolith**, seguindo princípios da **Clean Architecture**, organizando as funcionalidades por **Vertical Slice Architecture**,  com **ASP.NET Core Minimal APIs** e **.NET 10**.
+
 
 A estrutura da solução será:
 
@@ -63,12 +70,22 @@ Foram adotadas as seguintes decisões:
 - Utilizar .NET 10 como plataforma principal.
 - Utilizar ASP.NET Core Minimal APIs.
 - Utilizar xUnit para testes automatizados.
-- Utilizar PostgreSQL como banco de dados.
 - Utilizar Entity Framework Core como ORM.
 - Organizar o código por funcionalidades (Vertical Slice).
 - Manter o Domain independente das demais camadas.
 - Utilizar GitHub para hospedagem do código-fonte.
 - Utilizar Azure DevOps para gestão do backlog, sprints e planejamento.
+
+- O PostgreSQL foi definido como banco de dados padrão do projeto, embora sua implementação ocorra em uma sprint posterior.
+---
+
+## Justificativas
+
+ - **Modular Monolith:** visando reduzir complexidade, facilitar evolução (permite futura migração para microsserviços).
+ - **Minimal APIs:** recomendado para APIs modernas, menos código e melhor integração com Vertical Slice.
+ - **GitHub:** para versionamento, integração com GitHub Actions além de visibilidade (portfólio).
+ - **Azure DevOps:** para gestão do projeto fazendo uso de uma metodologia ágil (gerenciamento do backlog, Sprint, Boards) simulando ambiente corporativo.
+ - **GitHub Actions:**  realizando integração contínua, validação automática do build e evitar código quebrado.
 
 ---
 
@@ -123,9 +140,7 @@ As seguintes regras deverão ser respeitadas durante o desenvolvimento:
 
 ---
 
-## Próximos Passos
-
-As próximas decisões arquiteturais serão registradas em novas ADRs, incluindo:
+## Próximas ADRs
 
 - ADR-0002 – Estratégia para Minimal APIs
 - ADR-0003 – Persistência com Entity Framework Core
@@ -140,6 +155,6 @@ As próximas decisões arquiteturais serão registradas em novas ADRs, incluindo
 
 - Clean Architecture — Robert C. Martin
 - Domain-Driven Design — Eric Evans
-- Implementing Domain-Driven Design — Vaughn Vernon
 - Architecture Decision Records (ADR)
-- Microsoft Learn – ASP.NET Core
+- Microsoft Learn - ASP.NET Core Minimal APIs
+
