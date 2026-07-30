@@ -7,14 +7,10 @@ public class Result
     public bool IsFailure => !this.IsSuccess;
     public IReadOnlyCollection<Error> Errors { get; private set; }
 
-    public bool IsVariant { get; private set; }
-
-
     protected Result(bool isSuccess, List<Error> errors)
     {
-        SetIsVariant(errors, isSuccess);
-
-        if ((isSuccess ||  !isSuccess) && IsVariant)
+        if (isSuccess  && errors.Any() ||  
+            !isSuccess && !errors.Any())
         {
             throw new InvalidOperationException("Objeto com valores inconcistentes.");
         }
@@ -25,23 +21,14 @@ public class Result
 
     public static Result Success()
     {
-        return new Result(true, new List<Error> { Error.None });
+        return new Result(true, []);
     }
 
     public static Result Failure(Error error)
     {
-        return new Result(false, new List<Error> { Error.None });
+        return new Result(false, new List<Error> { error });
     }
 
-    private void SetIsVariant(List<Error> errors, bool isSuccess)
-    {
-        
-        if (isSuccess)
-            this.IsVariant = errors.Where(e => !string.IsNullOrEmpty(e.Message)).Count() > 0;
-        if (!isSuccess)
-            this.IsVariant = errors.Where(e => string.IsNullOrEmpty(e.Message)).Count() > 0;
-
-    }
 }
 
 
@@ -60,7 +47,7 @@ public class Result<T> : Result
 
     public static Result<T> Success(T value)
     {
-        return new Result<T>(value, true, new List<Error> { Error.None });
+        return new Result<T>(value, true, []);
     }
 
     public static Result<T> Failure(List<Error> errors)
