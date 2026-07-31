@@ -1,8 +1,10 @@
-# ADR-0005 – Adoção do Result Pattern
+# ADR-0005 – Adoção do Result Pattern para tratamento de falhas esperadas
 - **Status:** Aceita
 - **Data:** 27/07/2026
 - **Autor:** Alexandre de Campos
 ---
+## Contexto:
+Result Pattern para falhas de negócio esperadas;
 
 ## Decisão: 
 

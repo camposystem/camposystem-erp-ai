@@ -27,6 +27,7 @@ public sealed record ProductName
         if (errorList.Count > 0)
             return Result<ProductName>.Failure(errorList);
 
+
         return Result<ProductName>.Success(new ProductName(name));
     }
 }
