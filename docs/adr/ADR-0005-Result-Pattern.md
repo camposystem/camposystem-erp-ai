@@ -8,7 +8,10 @@ Result Pattern para falhas de negócio esperadas;
 
 ## Decisão: 
 
-Utilizar Result Pattern para representar erros de negócio.
+Utilizar Result Pattern para representar erros de negócio:
+
+- Os Value Objects aplicam validações sequenciais e retornam na primeira violação encontrada (Fail Fast). 
+- A agregação de múltiplos erros é responsabilidade de entidades ou casos de uso quando aplicável.
 
 Exceptions serão utilizadas apenas para falhas inesperadas ou de infraestrutura.
 
