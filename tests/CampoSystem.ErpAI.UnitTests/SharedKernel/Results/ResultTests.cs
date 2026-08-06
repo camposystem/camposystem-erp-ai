@@ -1,4 +1,4 @@
-using CampoSystem.ErpAI.Domain.Entites.Products.ValueObjects;
+using CampoSystem.ErpAI.Domain.Domain.Products.ValueObjects;
 using CampoSystem.ErpAI.SharedKernel.Result;
 
 namespace CampoSystem.ErpAI.UnitTests.SharedKernel.Results;
