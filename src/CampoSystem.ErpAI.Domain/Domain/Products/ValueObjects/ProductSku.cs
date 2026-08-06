@@ -1,5 +1,5 @@
 ﻿using CampoSystem.ErpAI.Domain.Domain.Products.Errors;
-using CampoSystem.ErpAI.SharedKernel.Result;
+using CampoSystem.ErpAI.SharedKernel.Common.Result;
 using System.Text.RegularExpressions;
 
 namespace CampoSystem.ErpAI.Domain.Domain.Products.ValueObjects;

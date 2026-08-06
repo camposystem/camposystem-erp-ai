@@ -1,4 +1,4 @@
-﻿namespace CampoSystem.ErpAI.SharedKernel.Result;
+﻿namespace CampoSystem.ErpAI.SharedKernel.Common.Result;
 
 public class Result
 {

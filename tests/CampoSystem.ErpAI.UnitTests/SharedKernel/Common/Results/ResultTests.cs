@@ -1,7 +1,7 @@
 using CampoSystem.ErpAI.Domain.Domain.Products.ValueObjects;
-using CampoSystem.ErpAI.SharedKernel.Result;
+using CampoSystem.ErpAI.SharedKernel.Common.Result;
 
-namespace CampoSystem.ErpAI.UnitTests.SharedKernel.Results;
+namespace CampoSystem.ErpAI.UnitTests.SharedKernel.Common.Results;
 
 public class ResultTests
 {
