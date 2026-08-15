@@ -5,16 +5,24 @@ public sealed class Money : IEquatable<Money>
 
     public decimal Amount { get; }
 
-    private Money(decimal amount) => Amount = amount;
+    private Money(decimal amount) => 
+        Amount = amount;
 
-    public static Money From(decimal amount) => new(amount);
+    public static Money From(decimal amount) =>
+        new(amount);
 
-    public bool Equals(Money? other)
-    {
-     return other != null && Amount == other.Amount;
-    }
+    public static bool operator ==(Money? left, Money? right) => 
+        left?.Equals(right) ?? right is null;
 
-    public override bool Equals(object? obj) => Equals(obj as Money);
+    public static bool operator !=(Money? left, Money? right) => 
+        !(left == right);
 
-    public override int GetHashCode() => Amount.GetHashCode();
+    public bool Equals(Money? other) => 
+        other != null && Amount == other.Amount;
+
+    public override bool Equals(object? obj) => 
+        Equals(obj as Money);
+
+    public override int GetHashCode() =>
+        Amount.GetHashCode();
 }
