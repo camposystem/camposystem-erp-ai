@@ -115,4 +115,95 @@ public class MoneyTests
         // Assert
         Assert.Equal(Money.From(-50m), result);
     }
+
+    [Fact]
+    public void Should_Multiply_Money_By_Decimal()
+    {
+        // Arrange
+        Money price = Money.From(50m);
+        var multiplier = 17.6255m;
+        var total = 50m * multiplier;
+
+        // Act     
+        var result = price * multiplier;
+
+        // Assert
+        Assert.Equal(Money.From(total)  , result);
+    }
+
+    [Fact]
+    public void Should_Return_Exceptions_When_Multiplying_Money_By_Null_Decimal()
+    {
+        // Arrange
+        Money? price = null;
+        var multiplier = 17.6255m;
+
+        // Act     
+        // Assert
+        Assert.Throws<MoneyException>(() => price * multiplier);
+
+    }
+    [Fact]
+    public void Should_Division_Money_By_Decimal()
+    {
+        // Arrange
+        Money price = Money.From(50m);
+        var divisor = 2m;
+        var total = 50m / divisor;
+
+        // Act     
+        var result = price / divisor;
+
+        // Assert
+        Assert.Equal(Money.From(total), result);
+    }
+
+    [Fact]
+    public void Should_Return_Exceptions_When_Division_Money_By_Null_Decimal()
+    {
+        // Arrange
+        Money? price = null;
+        var divisor =200m;
+
+        // Act     
+        // Assert
+        Assert.Throws<MoneyException>(() => price / divisor);
+
+    }
+
+    [Fact]
+    public void Should_Return_Exceptions_When_Division_Money_By_Zero_Decimal()
+    {
+        // Arrange
+        Money price = Money.From(200m);
+        var divisor = 0m;
+        // Act     
+        // Assert
+        Assert.Throws<MoneyException>(() => price / divisor).Equals("Não é possível realizar uma divisão monetária com valor zero.")    ;
+
+    }
+    [Fact]
+    public void Should_Round_ToEven_When_RetainedDigitIsEven()
+    {
+        // Arrange  
+        var money = Money.From(17.625m);
+        //act
+        var rounded = money.Round();
+        //assert
+        Assert.Equal(Money.From(17.62m), rounded);
+        Assert.Equal(Money.From(17.625m), money);
+    }
+
+
+    [Fact]
+    public void Should_Round_ToEven_When_RetainedDigitIsOdd()
+    {
+        //arrange       
+        var money = Money.From(17.635m);
+        //act
+        var rounded = money.Round();
+        //assert
+        Assert.Equal(Money.From(17.64m), rounded);
+        Assert.Equal(Money.From(17.635m), money);
+    }
 }

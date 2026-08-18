@@ -21,6 +21,7 @@ public sealed class Money : IEquatable<Money>
     public static bool operator !=(Money? left, Money? right) =>
         !(left == right);
 
+
     public static Money operator +(Money? left, Money? right)
     {
         if (left is null || right is null)
@@ -45,6 +46,37 @@ public sealed class Money : IEquatable<Money>
     }
 
 
+    public static Money operator *(Money? left, decimal right)
+    {
+        if (left is null )
+        {
+            throw new MoneyException(
+                 "Não é possível realizar uma operação monetária com valor nulo.");
+        }
+
+        return Money.From(left.Amount * right);
+    }
+
+
+
+    public static Money operator /(Money? left, decimal right)
+    {
+        if (left is null)
+        {
+            throw new MoneyException(
+                 "Não é possível realizar uma operação monetária com valor nulo.");
+        }
+
+        if (right == 0m)
+        {
+            throw new MoneyException(
+                 "Não é possível realizar uma divisão monetária com valor zero.");
+        }
+
+        return Money.From(left.Amount / right);
+    }
+
+
     public bool Equals(Money? other) =>
         other != null && Amount == other.Amount;
 
@@ -53,4 +85,13 @@ public sealed class Money : IEquatable<Money>
 
     public override int GetHashCode() =>
         Amount.GetHashCode();
+
+    public Money Round() =>
+        Money.From(Math.Round(Amount, 2, MidpointRounding.ToEven));
+
+
+
+
+
+
 }
