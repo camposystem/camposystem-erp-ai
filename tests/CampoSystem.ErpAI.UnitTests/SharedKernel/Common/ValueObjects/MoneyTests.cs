@@ -9,19 +9,32 @@ public class MoneyTests
     public void Should_BeEqual_When_AmountsAreEqual()
     {
         // Arrange
-        var money1 = Money.From(100m);
-        var money2 = Money.From(100m);
+        var money1 = Money.From(100.125m);
+        var money2 = Money.From(100.125m);
         // Act & Assert
         Assert.Equal(money1, money2);
         Assert.True(money1 == money2);
         Assert.False(money1 != money2);
     }
+
+    [Fact]
+    public void Should_BeEqual_When_AmountsAreEquivalents()
+    {
+        // Arrange
+        var money1 = Money.From(100.124m);
+        var money2 = Money.From(100.125m);
+        // Act & Assert
+        Assert.Equal(money1, money2);
+        Assert.True(money1 == money2);
+        Assert.False(money1 != money2);
+    }
+
     [Fact]
     public void Should_NotBeEqual_When_AmountsAreDifferent()
     {
         // Arrange
-        var money1 = Money.From(100m);
-        var money2 = Money.From(200m);
+        var money1 = Money.From(100.125m);
+        var money2 = Money.From(100.126m);
         // Act & Assert
         Assert.NotEqual(money1, money2);
         Assert.True(money1 != money2);
@@ -32,11 +45,11 @@ public class MoneyTests
     public void Should_KeepZero_When_AmountIsZero()
     {
         // Arrange
-        var money = Money.From(0m);
+        var money = Money.From(0.000m);
 
 
         // Act & Assert
-        Assert.Equal(0m, money.Value);
+        Assert.Equal(0m, money.Amount);
 
 
     }
@@ -46,7 +59,7 @@ public class MoneyTests
     {
         // Arrange
         Money? nullMoney = null;
-        var money = Money.From(100m);
+        var money = Money.From(100.125m);
 
         // Act & Assert
         Assert.True(nullMoney == null);
@@ -65,7 +78,7 @@ public class MoneyTests
 
         // Act     
         // Assert
-        Assert.Throws<MoneyException>(() => price + Money.From(100m));
+        Assert.Throws<MoneyException>(() => price + Money.From(100.125m));
 
     }
 
@@ -74,18 +87,18 @@ public class MoneyTests
     public void Should_Return_Amount_When_Querying_Money_Value()
     {
         // Arrange
-        var price = Money.From(50m);
+        var price = Money.From(50.125m);
 
         // Act
-        price += Money.From(10m);
-        price -= Money.From(70m);
+        price += Money.From(10.125m);
+        price -= Money.From(70.125m);
 
-        var total = price.Value + 100m;
+        var total = price + Money.From(100.125m);
 
         // Assert   
-        Assert.Equal(-10m, price.Value);
+        Assert.Equal(-9.88m, price.Amount);
 
-        Assert.NotEqual(total, price.Value);
+        Assert.NotEqual(total, price);
 
     }
 
@@ -93,13 +106,13 @@ public class MoneyTests
     public void Should_Return_Sum_When_Value_Is_Not_Null()
     {
         // Arrange
-        Money? price = Money.From(50m);
+        Money? price = Money.From(50.135m);
 
         // Act     
-        var result = price + Money.From(100m);
+        var result = price + Money.From(100.125m);
 
         // Assert
-        Assert.Equal(Money.From(150m), result);
+        Assert.Equal(Money.From(150.26m), result);
     }
 
 
@@ -107,28 +120,34 @@ public class MoneyTests
     public void Should_Return_Subtract_When_Value_Is_Not_Null()
     {
         // Arrange
-        Money? price = Money.From(50m);
+        Money? price = Money.From(50.135m);
 
         // Act     
-        var result = price - Money.From(100m);
+        var result = price - Money.From(100.125m);
+        var amountIntermidiatePrivate = Money.From(0.010m) + result;
 
         // Assert
-        Assert.Equal(Money.From(-50m), result);
+        Assert.Equal(Money.From(-49.990m), result);
+        Assert.Equal(Money.From(-49.980m), amountIntermidiatePrivate);
     }
 
     [Fact]
     public void Should_Multiply_Money_By_Decimal()
     {
         // Arrange
-        Money price = Money.From(50m);
+        Money priceAmount = Money.From(50.135m);
+        Money priceAmountB = Money.From(50.14m);
         var multiplier = 17.6255m;
-        var total = 50m * multiplier;
+        var result = 50.135m * multiplier;
 
-        // Act     
-        var result = price * multiplier;
+        // Act    
+        var calculo = priceAmount * multiplier;
+        var calculoB = priceAmountB * multiplier;
 
         // Assert
-        Assert.Equal(Money.From(total)  , result);
+        Assert.Equal(Money.From(result), calculo);
+        Assert.Equal(priceAmount, priceAmountB);
+        Assert.NotEqual(calculo , calculoB);
     }
 
     [Fact]
@@ -147,15 +166,19 @@ public class MoneyTests
     public void Should_Division_Money_By_Decimal()
     {
         // Arrange
-        Money price = Money.From(50m);
-        var divisor = 2m;
-        var total = 50m / divisor;
-
+        Money price = Money.From(50.135m);
+        Money priceB = Money.From(50.144m);
+        var divisor = 3.05m;
+  
         // Act     
-        var result = price / divisor;
+        var operacaoA = price / divisor;
+        var operacaoB = priceB / divisor;
+        var expectedA = (50.135m / divisor);
+        var expectedB = (50.144m / divisor);
 
         // Assert
-        Assert.Equal(Money.From(total), result);
+        Assert.Equal(Money.From(expectedA), operacaoA );
+        Assert.Equal(Money.From(expectedB), operacaoB ); 
     }
 
     [Fact]
@@ -163,7 +186,7 @@ public class MoneyTests
     {
         // Arrange
         Money? price = null;
-        var divisor =200m;
+        var divisor = 20.06m;
 
         // Act     
         // Assert
@@ -179,7 +202,7 @@ public class MoneyTests
         var divisor = 0m;
         // Act     
         // Assert
-        Assert.Throws<MoneyException>(() => price / divisor).Equals("Não é possível realizar uma divisão monetária com valor zero.")    ;
+        Assert.Throws<MoneyException>(() => price / divisor).Equals("Não é possível realizar uma divisão monetária com valor zero.");
 
     }
     [Fact]
@@ -188,10 +211,8 @@ public class MoneyTests
         // Arrange  
         var money = Money.From(17.625m);
         //act
-        var rounded = money.Round();
         //assert
-        Assert.Equal(Money.From(17.62m), rounded);
-        Assert.Equal(Money.From(17.625m), money);
+        Assert.Equal(17.62m, money.Amount);
     }
 
 
@@ -201,9 +222,7 @@ public class MoneyTests
         //arrange       
         var money = Money.From(17.635m);
         //act
-        var rounded = money.Round();
         //assert
-        Assert.Equal(Money.From(17.64m), rounded);
-        Assert.Equal(Money.From(17.635m), money);
+        Assert.Equal(17.64m, money.Amount);
     }
 }

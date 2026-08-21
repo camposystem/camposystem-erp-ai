@@ -21,6 +21,7 @@ Para o escopo atual:
 
 - `Money` representa valores em **BRL**;
 - a entrada monetária válida possui **2 casas decimais**;
+- 2 casas são a representação monetária do BRL; não necessariamente a precisão dos cálculos intermediários.
 - `null` representa ausência de valor e não deve ser convertido silenciosamente para zero;
 - operações monetárias com `null` são rejeitadas por `MoneyException`;
 - `+` e `-` operam exclusivamente entre `Money`;
