@@ -2,7 +2,7 @@
 
 namespace CampoSystem.ErpAI.SharedKernel.Common.ValueObjects;
 
-public sealed class Money : IEquatable<Money>
+public sealed class Money : IEquatable<Money>, IComparable<Money>
 {
     /// <summary>
     /// The maximum or minimum amount allowed for the Money value object.
@@ -44,6 +44,16 @@ public sealed class Money : IEquatable<Money>
     public override int GetHashCode() => Amount.GetHashCode();
 
     private static decimal RoundValue(decimal value) => Math.Round(value, 2, MidpointRounding.ToEven);
+
+    public int CompareTo(Money? other)=> other != null ? Amount.CompareTo(other.Amount) : 1;
+
+    public static bool operator <(Money? left, Money? right) => left is null ? right is not null : left.CompareTo(right) < 0;
+
+    public static bool operator >(Money? left, Money? right) => left is null ? false : left.CompareTo(right) > 0;
+
+    public static bool operator <=(Money? left, Money? right) => left is null || left.CompareTo(right) <= 0;
+
+    public static bool operator >=(Money? left, Money? right) => left is null ? right is null : left.CompareTo(right) >= 0;
 
     public static Money operator +(Money? left, Money? right)
     {
@@ -94,12 +104,5 @@ public sealed class Money : IEquatable<Money>
 
         return Money.From(left.AmountIntermediate / right);
     }
-
-
-
-
-
-
-
 
 }

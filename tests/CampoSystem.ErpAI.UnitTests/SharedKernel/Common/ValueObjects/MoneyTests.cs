@@ -301,4 +301,96 @@ public class MoneyTests
         Assert.Throws<MoneyOverflowException>(() => Money.From(value));
     }
 
+    [Fact]
+    public void Should_Money_Be_Considered_Smaller_When_Is_Less_Than_Other()
+    {
+        // Arrange
+        Money money1 = Money.From(10.124m);
+        Money money2 = Money.From(20.125m);
+
+        // Act
+        var isSmaller = money1 < money2;
+
+        // Assert
+        Assert.True(isSmaller);
+    }
+
+    [Fact]
+    public void Should_Money_Be_Considered_Smaller_Or_Equal_When_Is_Less_or_Equal_Than_Other()
+    {
+        // Arrange
+        Money money1 = Money.From(10.114m);
+        Money money2 = Money.From(20.125m);
+        Money money3 = Money.From(10.114m);
+
+        // Act
+        var isSmaller = money1 <= money2;
+        var isEqual = money1 <= money3;
+
+        // Assert
+        Assert.True(isSmaller);
+        Assert.True(isEqual);
+    }
+
+    [Fact]
+    public void Should_Money_Be_Considered_Greater_When_Is_Greater_Than_Other()
+    {
+        // Arrange
+        Money money1 = Money.From(20.125m);
+        Money money2 = Money.From(10.124m);
+
+        // Act
+        var isGreater = money1 > money2;
+
+        // Assert
+        Assert.True(isGreater);
+    }
+
+
+    [Fact]
+    public void Should_Money_Be_Considered_Greater_Or_Equal_When_Is_Greater_Or_Equal_Than_Other()
+    {
+        // Arrange
+        Money money1 = Money.From(20.125m);
+        Money money2 = Money.From(10.114m);
+        Money money3 = Money.From(20.125m);
+
+        // Act
+        var isGreaterOrEqual = money1 >= money2;
+        var isEqual = money1 >= money3;
+
+        // Assert
+        Assert.True(isGreaterOrEqual);
+        Assert.True(isEqual);
+    }
+    [Fact]
+    public void Should_Return_Zero_When_The_Equivalent_Value()
+    {
+        // Arrange
+        Money money1 = Money.From(10.124m);
+        Money money2 = Money.From(10.125m);
+
+        // Act
+        var comparison = money1.CompareTo(money2);
+
+        // Assert
+        Assert.True(comparison == 0);
+        Assert.Equal(money1, money2);
+
+    }
+
+    [Fact]
+    public void Should_Return_Positive_Value_When_Money_Is_Greater_Than_Other()
+    {
+        // Arrange
+        Money money1 = Money.From(10.129m);
+        Money money2 = Money.From(10.124m);
+
+        // Act
+        var comparison = money1.CompareTo(money2);
+
+        // Assert
+        Assert.True(comparison > 0);
+    }
 }
+
