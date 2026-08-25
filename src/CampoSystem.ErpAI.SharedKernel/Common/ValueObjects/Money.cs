@@ -4,13 +4,33 @@ namespace CampoSystem.ErpAI.SharedKernel.Common.ValueObjects;
 
 public sealed class Money : IEquatable<Money>
 {
+    /// <summary>
+    /// The maximum or minimum amount allowed for the Money value object.
+    /// </summary>
+    private const decimal MaximumAmount = 9999999999999999.99m;
+
     private decimal AmountIntermediate { get; }
 
     public decimal Amount => RoundValue(AmountIntermediate);
 
     private Money(decimal value) => AmountIntermediate = value;
+    /// <summary>
+    /// Creates a new instance of the Money value object from a decimal value.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    /// <exception cref="MoneyOverflowException"></exception>
+    public static Money From(decimal value)
+    {
+        var valueRounded = RoundValue(value);
 
-    public static Money From(decimal value) => new(value);
+        if (valueRounded > MaximumAmount || valueRounded < -MaximumAmount)
+        {
+            throw new MoneyOverflowException("O valor monetário não pode ser maior que 9999999999999999.99 ou menor que -9999999999999999.99 .");
+        }
+
+        return new Money(value);
+    }
 
     public static bool operator ==(Money? left, Money? right) => left?.Equals(right) ?? right is null;
 

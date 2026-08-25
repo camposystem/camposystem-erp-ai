@@ -147,7 +147,7 @@ public class MoneyTests
         // Assert
         Assert.Equal(Money.From(result), calculo);
         Assert.Equal(priceAmount, priceAmountB);
-        Assert.NotEqual(calculo , calculoB);
+        Assert.NotEqual(calculo, calculoB);
     }
 
     [Fact]
@@ -169,7 +169,7 @@ public class MoneyTests
         Money price = Money.From(50.135m);
         Money priceB = Money.From(50.144m);
         var divisor = 3.05m;
-  
+
         // Act     
         var operacaoA = price / divisor;
         var operacaoB = priceB / divisor;
@@ -177,8 +177,8 @@ public class MoneyTests
         var expectedB = (50.144m / divisor);
 
         // Assert
-        Assert.Equal(Money.From(expectedA), operacaoA );
-        Assert.Equal(Money.From(expectedB), operacaoB ); 
+        Assert.Equal(Money.From(expectedA), operacaoA);
+        Assert.Equal(Money.From(expectedB), operacaoB);
     }
 
     [Fact]
@@ -225,4 +225,80 @@ public class MoneyTests
         //assert
         Assert.Equal(17.64m, money.Amount);
     }
+
+    [Fact]
+    public void Should_Create_Money_When_Value_Is_At_Maximum_Limit()
+    {
+        //arrange       
+        var value = 9999999999999999.99m;
+
+        //act
+        var money = Money.From(value);
+
+        //assert
+        Assert.NotNull(money);
+    }
+
+    [Fact]
+    public void Should_Throw_MoneyOverflowException_When_Value_Is_Greater_Than_Maximum_Limit()
+    {
+        //arrange       
+        var value = 10000000000000000.00m;
+
+        //act & assert
+        Assert.Throws<MoneyOverflowException>(() => Money.From(value));
+    }
+
+    [Fact]
+    public void Should_Create_Money_When_Value_Is_At_Minimum_Limit()
+    {
+        //arrange       
+        var value = -9999999999999999.99m;
+
+        //act
+        var money = Money.From(value);
+
+        //assert
+        Assert.NotNull(money);
+    }
+
+    [Fact]
+    public void Should_Create_Money_When_IntermediateValue_Is_At_Maximum_Limit()
+    {
+        var value = 9999999999999999.994m;
+
+        var money = Money.From(value);
+
+        Assert.Equal(Money.From(9999999999999999.99m), money);
+    }
+
+    [Fact]
+    public void Should_Throw_MoneyOverflowException_When_Value_Is_Less_Than_Minimum_Limit()
+    {
+        //arrange       
+        var value = -10000000000000000.00m;
+
+        //act & assert
+        Assert.Throws<MoneyOverflowException>(() => Money.From(value));
+    }
+
+    [Fact]
+    public void Should_Throw_MoneyOverflowException_When_IntermediateValue_Rounds_Above_Maximum_Limit()
+    {
+        var value = 9999999999999999.995m;
+
+        //act & assert
+        Assert.Throws<MoneyOverflowException>(() => Money.From(value));
+    }
+
+
+    [Fact]
+    public void Should_Throw_MoneyOverflowException_When_IntermediateValue_Rounds_Above_Minimum_Limit()
+    {
+        var value = -9999999999999999.995m;
+
+        //act & assert
+        Assert.Throws<MoneyOverflowException>(() => Money.From(value));
+    }
+
 }
