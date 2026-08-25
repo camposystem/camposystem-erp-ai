@@ -13,6 +13,13 @@ public sealed class Money : IEquatable<Money>, IComparable<Money>
 
     public decimal Amount => RoundValue(AmountIntermediate);
 
+    public bool IsNegative => Amount < 0m;
+
+
+    public bool IsZero => Amount == 0m;
+
+    public bool IsPositive => Amount >= 0m;
+
     private Money(decimal value) => AmountIntermediate = value;
     /// <summary>
     /// Creates a new instance of the Money value object from a decimal value.
@@ -37,7 +44,7 @@ public sealed class Money : IEquatable<Money>, IComparable<Money>
     public static bool operator !=(Money? left, Money? right) => !(left == right);
 
 
-    public bool Equals(Money? other) => other != null && Amount== other.Amount;
+    public bool Equals(Money? other) => other != null && Amount == other.Amount;
 
     public override bool Equals(object? obj) => Equals(obj as Money);
 
@@ -45,7 +52,7 @@ public sealed class Money : IEquatable<Money>, IComparable<Money>
 
     private static decimal RoundValue(decimal value) => Math.Round(value, 2, MidpointRounding.ToEven);
 
-    public int CompareTo(Money? other)=> other != null ? Amount.CompareTo(other.Amount) : 1;
+    public int CompareTo(Money? other) => other != null ? Amount.CompareTo(other.Amount) : 1;
 
     public static bool operator <(Money? left, Money? right) => left is null ? right is not null : left.CompareTo(right) < 0;
 
@@ -79,7 +86,7 @@ public sealed class Money : IEquatable<Money>, IComparable<Money>
 
     public static Money operator *(Money? left, decimal right)
     {
-        if (left is null )
+        if (left is null)
         {
             throw new MoneyException(
                  "Não é possível realizar uma operação monetária com valor nulo.");

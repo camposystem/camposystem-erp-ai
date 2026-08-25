@@ -392,5 +392,52 @@ public class MoneyTests
         // Assert
         Assert.True(comparison > 0);
     }
+
+    [Fact]
+    public void Should_Be_Negative_When_Money_Is_Less_Than_Zero()
+    {
+        // Arrange
+        Money money = Money.From(-10m);
+
+        // Act
+        var isNegative = money.IsNegative;
+
+        // Assert
+        Assert.True(isNegative);
+    }
+
+
+    [Fact]
+    public void Should_Be_Zero_When_Money_Is_Zero()
+    {
+        // Arrange
+        Money money = Money.From(0m);
+
+        // Act
+        var isZero = money.IsZero;
+
+        // Assert
+        Assert.True(isZero);
+    }
+
+
+    [Fact]
+    public void Should_Be_Positive_When_Amount_Is_Greater_Than_Or_Equal_To_Zero()
+    {
+        // Arrange
+        Money money1 = Money.From(10m);
+        Money money2 = Money.From(0m);
+        Money money3 = Money.From(-10m);
+
+        // Act
+        var isPositive1 = money1.IsPositive;
+        var isPositive2 = money2.IsPositive;
+        var isPositive3 = money3.IsPositive;
+
+        // Assert
+        Assert.True(isPositive1);
+        Assert.True(isPositive2);
+        Assert.False(isPositive3);
+    }
 }
 
