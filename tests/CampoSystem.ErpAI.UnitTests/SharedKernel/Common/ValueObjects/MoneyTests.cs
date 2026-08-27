@@ -522,13 +522,45 @@ public class MoneyTests
         // Arrange
         Money money = Money.From(120m);
         // Act
-        var result = money.DiscountPercentage(-10m);
+        var resultNegative = money.DiscountPercentage(-10m);
         var resultZero = money.DiscountPercentage(0m);
 
         // Assert
-        Assert.Equal(Money.From(120m), result);
+        Assert.Equal(Money.From(120m), resultNegative);
         Assert.Equal(Money.From(120m), resultZero);
     }
+
+    [Theory]
+    [InlineData(10.0, 110.0)]
+    [InlineData(25.0, 125.0)]
+    [InlineData(50.0, 150.0)]
+    [InlineData(150.0, 250.0)]
+    public void Given_A_Positive_Percentage_Greater_Than_Zero_The_Percentage_Must_Be_Added_To_The_Money(double percentage, double expected)
+
+    {
+        // Arrange
+        Money money = Money.From(100m);
+
+        // Act
+        var result = money.IncreasePercentage((decimal)percentage);
+
+        // Assert
+        Assert.Equal(Money.From((decimal)expected), result);
+    }
+
+    [Theory]
+    [InlineData(-10.0, 100.0)]
+    [InlineData(0, 100.0)]
+    public void Should_Return_Original_Value_When_Increase_Is_Less_Than_Or_Equal_To_Zero(double percentage, double expected)
+    {
+        // Arrange
+        Money money = Money.From(100m);
+
+        // Act
+        var result = money.IncreasePercentage((decimal)percentage);
+
+        // Assert
+        Assert.Equal(Money.From((decimal)expected), result);
+    }
+
 }
-
-
