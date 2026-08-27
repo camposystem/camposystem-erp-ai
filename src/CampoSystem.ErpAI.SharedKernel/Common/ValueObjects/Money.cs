@@ -39,6 +39,20 @@ public sealed class Money : IEquatable<Money>, IComparable<Money>
         return new Money(value);
     }
 
+    public  Money CalculatePercentage(decimal percentage)=> Money.From(AmountIntermediate * (percentage / 100m));
+
+    public Money DiscountPercentage(decimal percentage)
+    {
+        if (percentage <= 0m || percentage > 100m)
+        {
+            return Money.From(AmountIntermediate);
+        }
+
+        var discount = CalculatePercentage(percentage);
+        return Money.From(AmountIntermediate - discount.AmountIntermediate);
+    }
+
+
     public static bool operator ==(Money? left, Money? right) => left?.Equals(right) ?? right is null;
 
     public static bool operator !=(Money? left, Money? right) => !(left == right);

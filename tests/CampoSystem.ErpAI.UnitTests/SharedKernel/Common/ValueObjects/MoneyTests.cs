@@ -439,5 +439,96 @@ public class MoneyTests
         Assert.True(isPositive2);
         Assert.False(isPositive3);
     }
+
+    [Fact]
+    public void Given_a_Money100_calculating_10_percent_should_return_10()
+    {
+        // Arrange
+        Money money = Money.From(100m);
+
+        // Act
+        var result = money.CalculatePercentage(10m);
+
+        // Assert
+        Assert.Equal(Money.From(10m), result);
+    }
+
+    [Fact]
+    public void Given_a_Money100_calculating_0_percent_should_return_0()
+    {
+        // Arrange
+        Money money = Money.From(100m);
+
+        // Act
+        var result = money.CalculatePercentage(0m);
+
+        // Assert
+        Assert.Equal(Money.From(0m), result);
+    }
+
+    [Fact]
+    public void Given_a_Money100_calculating_Negative_percent_should_return_Negative_Result()
+    {
+        // Arrange
+        Money money = Money.From(100m);
+
+        // Act
+        var result = money.CalculatePercentage(-10m);
+
+        // Assert
+        Assert.Equal(Money.From(-10m), result);
+    }
+
+    [Fact]
+    public void Given_Money_100_With_10_Percent_Discount_Should_Return_90()
+    {
+        // Arrange
+        Money money = Money.From(100m);
+
+        // Act
+        var result = money.DiscountPercentage(10m);
+
+        // Assert
+        Assert.Equal(Money.From(90m), result);
+    }
+
+    [Fact]
+    public void Given_Money_100_With_100_Percent_Discount_Should_Return_0()
+    {
+        // Arrange
+        Money money = Money.From(100m);
+
+        // Act
+        var result = money.DiscountPercentage(100m);
+
+        // Assert
+        Assert.Equal(Money.From(0m), result);
+    }
+
+    [Fact]
+    public void Given_Discount_Greater_Than_100_Should_Return_Original_Value()
+    {
+        // Arrange
+        Money money = Money.From(120m);
+        // Act
+        var result = money.DiscountPercentage(150m);
+        // Assert
+        Assert.Equal(Money.From(120m), result);
+    }
+
+    [Fact]
+    public void Should_Return_Original_Value_When_Discount_Is_Less_Than_Or_Equal_To_Zero()
+    {
+        // Arrange
+        Money money = Money.From(120m);
+        // Act
+        var result = money.DiscountPercentage(-10m);
+        var resultZero = money.DiscountPercentage(0m);
+
+        // Assert
+        Assert.Equal(Money.From(120m), result);
+        Assert.Equal(Money.From(120m), resultZero);
+    }
 }
+
 
