@@ -63,6 +63,7 @@ public sealed class Money : IEquatable<Money>, IComparable<Money>
         return Money.From(AmountIntermediate + increase.AmountIntermediate);
     }
 
+
     public static bool operator ==(Money? left, Money? right) => left?.Equals(right) ?? right is null;
 
     public static bool operator !=(Money? left, Money? right) => !(left == right);

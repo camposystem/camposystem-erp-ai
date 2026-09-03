@@ -9,7 +9,6 @@ public class ResultTests
     public void Success_Should_Return_Success_With_No_Errors()
     {
         // Arrange
-        var productName = "Micro Ondas Consul";
 
         // Act
         var result = Result.Success();

@@ -1,4 +1,4 @@
-﻿namespace CampoSystem.ErpAI.SharedKernel.Common.Exceptions;
+﻿namespace CampoSystem.ErpAI.Domain.Finances.Exceptions;
 
 public class RateException : Exception
 {

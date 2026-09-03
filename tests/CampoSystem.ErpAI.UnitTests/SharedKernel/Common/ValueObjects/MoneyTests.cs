@@ -563,4 +563,5 @@ public class MoneyTests
         Assert.Equal(Money.From((decimal)expected), resultIncrease);
     }
 
+  
 }
