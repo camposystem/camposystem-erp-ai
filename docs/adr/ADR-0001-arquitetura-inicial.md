@@ -140,14 +140,13 @@ As seguintes regras deverão ser respeitadas durante o desenvolvimento:
 
 ---
 
+
 ## Próximas ADRs
 
-- ADR-0002 – Estratégia para Minimal APIs
-- ADR-0003 – Persistência com Entity Framework Core
-- ADR-0004 – Observabilidade
-- ADR-0005 – Autenticação e Autorização
-- ADR-0006 – Docker e Containers
-- ADR-0007 – Integração com Inteligência Artificial
+- ADR-0006 – Estratégia de Persistência (PostgreSQL)
+- ADR-0007 – Docker
+- ADR-0008 – Observabilidade
+- ADR-0009 – Autenticação e Autorização
 
 ---
 
