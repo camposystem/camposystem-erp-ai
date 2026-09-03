@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+
   <ItemGroup>
     <ProjectReference Include="..\CampoSystem.ErpAI.SharedKernel\CampoSystem.ErpAI.SharedKernel.csproj" />
   </ItemGroup>

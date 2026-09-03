@@ -140,7 +140,8 @@ As seguintes regras deverão ser respeitadas durante o desenvolvimento:
 
 ---
 
-## Próximas ADRs (previstas)
+
+## Próximas ADRs
 
 - ADR-0006 – Estratégia de Persistência (PostgreSQL)
 - ADR-0007 – Docker
