@@ -1,5 +1,5 @@
-﻿using CampoSystem.ErpAI.Domain.Domain.Products.Errors;
-using CampoSystem.ErpAI.Domain.Domain.Products.ValueObjects;
+﻿using CampoSystem.ErpAI.Domain.Products.Errors;
+using CampoSystem.ErpAI.Domain.Products.ValueObjects;
 
 namespace CampoSystem.ErpAI.UnitTests.Domain.Products.ValueObjects;
 
@@ -57,5 +57,21 @@ public class ProductSkuTests
         Assert.True(result.IsSuccess);
 
         Assert.Equal(sku, result.Value.Sku);
+    }
+
+    [Theory]
+    [InlineData("SKU 123")]
+    [InlineData("SKU@LOWERCASE")]
+    [InlineData("SKU.123")]
+    [InlineData("SKU#123LOWERCASE")]
+    [InlineData("SKU#")]
+    public void Should_Return_Success_When_Sku_Is_Invalid(string sku)
+    {
+        //Act
+        var result = ProductSku.Create(sku);
+
+        //Assert
+        Assert.True(result.IsFailure);
+
     }
 }
