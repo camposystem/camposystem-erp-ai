@@ -1,8 +1,8 @@
-﻿using CampoSystem.ErpAI.Domain.Domain.Products.Errors;
+﻿using CampoSystem.ErpAI.Domain.Products.Errors;
 using CampoSystem.ErpAI.SharedKernel.Common.Result;
 using System.Text.RegularExpressions;
 
-namespace CampoSystem.ErpAI.Domain.Domain.Products.ValueObjects;
+namespace CampoSystem.ErpAI.Domain.Products.ValueObjects;
 
 public sealed record ProductSku
 {

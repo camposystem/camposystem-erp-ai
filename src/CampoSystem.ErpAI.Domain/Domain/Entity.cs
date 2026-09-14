@@ -1,4 +1,4 @@
-﻿namespace CampoSystem.ErpAI.Domain.Domain;
+﻿namespace CampoSystem.ErpAI.Domain;
 
 public class Entity
 {
