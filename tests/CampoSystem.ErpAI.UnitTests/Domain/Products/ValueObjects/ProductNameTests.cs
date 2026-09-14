@@ -1,5 +1,5 @@
-using CampoSystem.ErpAI.Domain.Domain.Products.Errors;
-using CampoSystem.ErpAI.Domain.Domain.Products.ValueObjects;
+using CampoSystem.ErpAI.Domain.Products.Errors;
+using CampoSystem.ErpAI.Domain.Products.ValueObjects;
 
 namespace CampoSystem.ErpAI.UnitTests;
 

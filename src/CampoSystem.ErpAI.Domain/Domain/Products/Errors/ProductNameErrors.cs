@@ -1,7 +1,7 @@
-﻿using CampoSystem.ErpAI.Domain.Domain.Products.ValueObjects;
+﻿using CampoSystem.ErpAI.Domain.Products.ValueObjects;
 using CampoSystem.ErpAI.SharedKernel.Common.Result;
 
-namespace CampoSystem.ErpAI.Domain.Domain.Products.Errors;
+namespace CampoSystem.ErpAI.Domain.Products.Errors;
 
 public static class ProductNameErrors
 {
