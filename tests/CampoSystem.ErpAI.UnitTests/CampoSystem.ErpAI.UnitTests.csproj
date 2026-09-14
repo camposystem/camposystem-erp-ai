@@ -16,6 +16,8 @@
 
   <ItemGroup>
 
+    <ProjectReference Include="..\..\src\CampoSystem.ErpAI.Application\CampoSystem.ErpAI.Application.csproj" />
+
     <ProjectReference Include="..\..\src\CampoSystem.ErpAI.Domain\CampoSystem.ErpAI.Domain.csproj" />
   </ItemGroup>
 
