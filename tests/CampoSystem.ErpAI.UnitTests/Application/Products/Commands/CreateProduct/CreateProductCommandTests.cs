@@ -1,5 +1,4 @@
 ﻿using CampoSystem.ErpAI.Application.Products.Commands.CreateProduct;
-using System.Runtime.ConstrainedExecution;
 
 namespace CampoSystem.ErpAI.UnitTests.Application.Products.Commands.CreateProduct;
 
