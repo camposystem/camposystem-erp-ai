@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CampoSystem.ErpAI.Domain\CampoSystem.ErpAI.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

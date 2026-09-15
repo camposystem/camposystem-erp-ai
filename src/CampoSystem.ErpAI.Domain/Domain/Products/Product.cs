@@ -15,19 +15,20 @@ public sealed class Product : Entity
     public string Description { get; private set; } = string.Empty;
     public bool IsActive { get; private set; } = false;
 
-    public Product(ProductName name, ProductSku sku, Money? price)
+    public Product(ProductName name, ProductSku sku, Money? price, string? description = null)
     {
         Name = name;
         Sku = sku;
         Price = price;
-            }
+        Description = description ?? string.Empty;
+    }
 
     public void Deactivate() => IsActive = false;
     public void Activate() => IsActive = Name is not null && Sku is not null && Price is not null && Price.Amount > 0;
 
     public Result<Product> ChangePrice(Money newPrice)
     {
-        if(newPrice.Amount <= 0)
+        if (newPrice.Amount <= 0)
         {
             return Result<Product>.Failure([ProductErrors.InvalidPrice]);
         }
@@ -43,7 +44,7 @@ public sealed class Product : Entity
 
     public void ChangeSku(ProductSku value)
     {
-        Sku = value ;
+        Sku = value;
     }
 
     public Result<Product> ChangeDescription(string value)
