@@ -3,7 +3,7 @@
 public sealed record CreateProductCommand(
     string Name,
     string Sku,
-    decimal Price,
+    decimal? Price,
     string Description = "")
 {
 }
