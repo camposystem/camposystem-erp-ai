@@ -20,7 +20,7 @@ public sealed class CreateProductCommandHandler
     {
         var name = ProductName.Create(command.Name);
         var sku = ProductSku.Create(command.Sku);
-        var price = Money.From(command.Price);
+        var price = command.Price.HasValue ? Money.From(command.Price.Value) : null;
 
         if (name.IsFailure)
         {
