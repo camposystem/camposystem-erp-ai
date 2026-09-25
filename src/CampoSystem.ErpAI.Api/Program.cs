@@ -1,3 +1,4 @@
+using CampoSystem.ErpAI.Application.Products.Repositories;
 using CampoSystem.ErpAI.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ProductDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("PostgreSQL")));
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
