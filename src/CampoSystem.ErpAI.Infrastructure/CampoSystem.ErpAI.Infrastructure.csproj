@@ -7,10 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CampoSystem.ErpAI.Application\CampoSystem.ErpAI.Application.csproj" />
     <ProjectReference Include="..\CampoSystem.ErpAI.Domain\CampoSystem.ErpAI.Domain.csproj" />
   </ItemGroup>
 
