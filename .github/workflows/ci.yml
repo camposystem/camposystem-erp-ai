@@ -54,5 +54,8 @@ jobs:
       - name: Build
         run: dotnet build --no-restore --configuration Release
 
+      - name: Apply database migrations
+        run: dotnet ef database update --project src/CampoSystem.ErpAI.Infrastructure --startup-project src/CampoSystem.ErpAI.Api
+
       - name: Test
         run: dotnet test --no-build --configuration Release
