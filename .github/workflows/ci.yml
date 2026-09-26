@@ -16,6 +16,21 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres123
+          POSTGRES_DB: camposystem
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d camposystem"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,11 +45,23 @@ jobs:
       - name: List repository files
         run: find src -type f
 
+      - name: Install EF Core CLI
+        run: dotnet tool install --global dotnet-ef --version 10.0.3
+        
       - name: Restore
         run: dotnet restore
 
       - name: Build
         run: dotnet build --no-restore --configuration Release
+
+      - name: EF Info
+        run: dotnet ef --version
+
+      - name: SDK Info
+        run: dotnet --info
+
+      - name: Apply database migrations
+        run: dotnet ef database update --project src/CampoSystem.ErpAI.Infrastructure --startup-project src/CampoSystem.ErpAI.Api --configuration Release --no-build --verbose
 
       - name: Test
         run: dotnet test --no-build --configuration Release
