@@ -29,4 +29,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Api\Products\Endpoints\" />
+  </ItemGroup>
+
 </Project>
