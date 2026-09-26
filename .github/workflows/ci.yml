@@ -57,7 +57,7 @@ jobs:
       - name: EF Info
         run: dotnet ef --version
 
-        - name: SDK Info
+      - name: SDK Info
         run: dotnet --info
 
       - name: Apply database migrations
