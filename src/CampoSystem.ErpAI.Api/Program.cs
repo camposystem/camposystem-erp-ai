@@ -1,3 +1,5 @@
+using CampoSystem.ErpAI.Api.Products.Endpoints;
+using CampoSystem.ErpAI.Application.Products.Commands.CreateProduct;
 using CampoSystem.ErpAI.Application.Products.Repositories;
 using CampoSystem.ErpAI.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
         builder.Configuration.GetConnectionString("PostgreSQL")));
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<CreateProductCommandHandler>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -22,6 +25,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseSwaggerUI(o => o.SwaggerEndpoint("/openapi/v1.json", "CampoSystem.ErpAI.Api v1"));
 app.UseHttpsRedirection();
 
 var summaries = new[]
@@ -29,23 +33,6 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+ProductsEndpoints.MapCreateProduct(app);
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
