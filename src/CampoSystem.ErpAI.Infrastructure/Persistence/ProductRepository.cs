@@ -1,5 +1,6 @@
 ﻿using CampoSystem.ErpAI.Application.Products.Repositories;
 using CampoSystem.ErpAI.Domain.Products;
+using Microsoft.EntityFrameworkCore;
 
 namespace CampoSystem.ErpAI.Infrastructure.Persistence;
 
@@ -22,8 +23,8 @@ public class ProductRepository : IProductRepository
         return Task.FromResult(product);
     }
 
-    public Task<IReadOnlyList<Product>> GetAllAsync()
+    public async Task<IReadOnlyList<Product>> GetAllAsync()
     {
-        throw new NotImplementedException();
+       return await _dbContext.Products.ToListAsync();
     }
 }
