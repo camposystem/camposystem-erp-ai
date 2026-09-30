@@ -1,9 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CampoSystem.ErpAI.Application.Products.Repositories;
 
-namespace CampoSystem.ErpAI.Application.Products.Commands.GetProduct;
+namespace CampoSystem.ErpAI.Application.Products.Queries.ListProducts;
 
-internal class ListProductsHandler
+public sealed class ListProductsHandler
 {
+    private readonly IProductRepository _repository;
+
+    public ListProductsHandler(IProductRepository repository)
+    {
+        _repository = repository;
+    }
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace CampoSystem.ErpAI.Application.Products.Response;
 
-namespace CampoSystem.ErpAI.Application.Response;
-
-internal class ListProductsResponse
-{
-}
+public sealed record ListProductsResponse(
+    Guid Id,
+    string Name,
+    string Sku,
+    decimal? Price,
+    string Description);
