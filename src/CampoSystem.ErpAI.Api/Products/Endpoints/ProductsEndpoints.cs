@@ -1,7 +1,7 @@
 ﻿using CampoSystem.ErpAI.Api.Products.Mappers;
 using CampoSystem.ErpAI.Api.Products.Requests;
 using CampoSystem.ErpAI.Application.Products.Commands.CreateProduct;
-using CampoSystem.ErpAI.Application.Response;
+using CampoSystem.ErpAI.Application.Products.Response;
 using CampoSystem.ErpAI.SharedKernel.Common.Result;
 
 namespace CampoSystem.ErpAI.Api.Products.Endpoints;
