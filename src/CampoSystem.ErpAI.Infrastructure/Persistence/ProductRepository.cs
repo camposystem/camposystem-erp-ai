@@ -21,4 +21,9 @@ public class ProductRepository : IProductRepository
 
         return Task.FromResult(product);
     }
+
+    public Task<IReadOnlyList<Product>> GetAllAsync()
+    {
+        throw new NotImplementedException();
+    }
 }
