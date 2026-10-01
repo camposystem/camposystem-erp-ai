@@ -1,5 +1,6 @@
 using CampoSystem.ErpAI.Api.Products.Endpoints;
 using CampoSystem.ErpAI.Application.Products.Commands.CreateProduct;
+using CampoSystem.ErpAI.Application.Products.Queries.ListProducts;
 using CampoSystem.ErpAI.Application.Products.Repositories;
 using CampoSystem.ErpAI.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<CreateProductCommandHandler>();
+builder.Services.AddScoped<ListProductsHandler>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -34,5 +36,6 @@ var summaries = new[]
 };
 
 ProductsEndpoints.MapCreateProduct(app);
+ProductsEndpoints.MapListProducts(app);
 
 app.Run();

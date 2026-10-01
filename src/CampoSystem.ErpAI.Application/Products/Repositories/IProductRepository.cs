@@ -5,4 +5,6 @@ namespace CampoSystem.ErpAI.Application.Products.Repositories;
 public interface IProductRepository
 {
     Task<Product> AddAsync(Product product);
+
+    Task<IReadOnlyList<Product>> GetAllAsync();
 }

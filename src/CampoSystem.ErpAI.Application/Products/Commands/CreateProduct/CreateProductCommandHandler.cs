@@ -1,5 +1,5 @@
 ﻿using CampoSystem.ErpAI.Application.Products.Repositories;
-using CampoSystem.ErpAI.Application.Response;
+using CampoSystem.ErpAI.Application.Products.Response;
 using CampoSystem.ErpAI.Domain.Products;
 using CampoSystem.ErpAI.Domain.Products.ValueObjects;
 using CampoSystem.ErpAI.SharedKernel.Common.Result;
