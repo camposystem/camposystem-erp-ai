@@ -27,7 +27,7 @@ __RN04__ - Obrigatoriedade do Nome: O Name é obrigatório, devendo ter entre 3 
 __RN05__ - Descrição Opcional: A Description é opcional, mas se preenchida deve ter um limite máximo (ex: 1.000 caracteres).
 
 ### 3. Precificação (Price)
-__RN06__ - Valor Mínimo: O Price pode ser nulo na criação do produto. Não é permitido cadastrar produtos com preço negativo ou zerado.
+__RN06__ - Valor Mínimo: O Price pode ser nulo na criação do produto. Não é permitido cadastrar produtos com preço negativo ou zerado, caso isso ocorrer o estado do produto deve ser inativo.
 
 __RN07__ - Precisão Monetária: O valor deve aceitar até 2 casas decimais.
 
