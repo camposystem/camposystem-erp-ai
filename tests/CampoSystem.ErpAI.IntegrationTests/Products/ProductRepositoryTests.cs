@@ -2,19 +2,25 @@
 using CampoSystem.ErpAI.Domain.Products;
 using CampoSystem.ErpAI.Domain.Products.ValueObjects;
 using CampoSystem.ErpAI.Infrastructure.Persistence;
+using CampoSystem.ErpAI.IntegrationTests.Infrastructure;
 using CampoSystem.ErpAI.SharedKernel.Common.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace CampoSystem.ErpAI.IntegrationTests.Products;
 
-public class ProductRepositoryTests
+public class ProductRepositoryTests : IClassFixture<DatabaseFixture>
 {
     private readonly ProductDbContext _dbContext;
 
-    public ProductRepositoryTests()
+    private readonly DatabaseFixture _databaseFixture;
+
+    public ProductRepositoryTests(DatabaseFixture databaseFixture)
     {
+        _databaseFixture = databaseFixture;
+
         var options = new DbContextOptionsBuilder<ProductDbContext>()
-            .UseNpgsql("Host=localhost;Port=5432;Database=camposystem;Username=postgres;Password=postgres123")
+            .UseNpgsql(_databaseFixture.ConnectionString)
             .Options;
 
         _dbContext = new ProductDbContext(options);
@@ -24,9 +30,12 @@ public class ProductRepositoryTests
     public async Task Should_Add_Product()
     {
         // Arrange
+
+        await _databaseFixture.ResetDatabaseAsync();
+
         var productName = new ProductName("Product Test");
         var productSku = new ProductSku("SKU123");
-        var productPrice =  Money.From(10.99m);
+        var productPrice = Money.From(10.99m);
 
         var product = new Product(productName, productSku, productPrice);
 
@@ -43,11 +52,15 @@ public class ProductRepositoryTests
         Assert.Equal(10.99m, persistedProduct.Price!.Amount);
     }
 
+
+
     [Fact]
     public async Task Given_A_Valid_Product_Command_The_Handler_Should_Persist_The_Product()
     {
 
         // Arrange
+        await _databaseFixture.ResetDatabaseAsync();
+
         var command = new CreateProductCommand(
             Name: "Test Product",
             Sku: "TESTSKU",
@@ -77,4 +90,38 @@ public class ProductRepositoryTests
         Assert.Equal(command.Sku, persistedProduct.Sku.Sku);
         Assert.Equal(command.Price, persistedProduct.Price!.Amount);
     }
+
+    [Fact]
+    public async Task Should_Get_All_Products()
+    {
+        // Arrange
+        await _databaseFixture.ResetDatabaseAsync();
+
+        var repository = new ProductRepository(_dbContext);
+
+        var product1 = new Product(
+            ProductName.Create("Product 1").Value,
+            ProductSku.Create("SKU-001").Value,
+            Money.From(10.99m),
+            "Description 1");
+
+        var product2 = new Product(
+            ProductName.Create("Product 2").Value,
+            ProductSku.Create("SKU-002").Value,
+            Money.From(20.99m),
+            "Description 2");
+
+        _dbContext.Products.AddRange(product1, product2);
+        await _dbContext.SaveChangesAsync();
+
+        // Act
+        var result = await repository.GetAllAsync();
+
+        // Assert
+        Assert.Equal(2, result.Count);
+        Assert.Contains(result, p => p.Id == product1.Id);
+        Assert.Contains(result, p => p.Id == product2.Id);
+    }
+
+
 }
