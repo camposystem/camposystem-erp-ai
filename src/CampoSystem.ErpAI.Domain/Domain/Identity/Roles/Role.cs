@@ -1,6 +1,6 @@
-﻿using CampoSystem.ErpAI.Domain.Domain.Identity.Permissions;
+﻿using CampoSystem.ErpAI.Domain.Identity.Permissions;
 
-namespace CampoSystem.ErpAI.Domain.Domain.Identity.Roles;
+namespace CampoSystem.ErpAI.Domain.Identity.Roles;
 
 public sealed class Role : Entity
 {

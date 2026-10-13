@@ -1,4 +1,4 @@
-﻿using CampoSystem.ErpAI.Domain.Domain.Identity.Permissions;
+﻿using CampoSystem.ErpAI.Domain.Identity.Permissions;
 
 namespace CampoSystem.ErpAI.UnitTests.Domain.Identity.Permissions;
 

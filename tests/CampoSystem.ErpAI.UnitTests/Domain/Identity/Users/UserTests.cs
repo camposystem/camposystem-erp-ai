@@ -1,5 +1,6 @@
-﻿using CampoSystem.ErpAI.Domain.Domain.Identity.Roles;
-using CampoSystem.ErpAI.Domain.Domain.Identity.User;
+﻿using CampoSystem.ErpAI.Domain.Identity.Roles;
+using CampoSystem.ErpAI.Domain.Identity.TenantMemberships;
+using CampoSystem.ErpAI.Domain.Identity.Users;
 
 namespace CampoSystem.ErpAI.UnitTests.Domain.Identity.Users;
 
@@ -17,41 +18,42 @@ public  class UserTests
     }
 
     [Fact]
-    public void AddRole_ShouldAddRole_WhenRoleIsNotAlreadyAssigned()
+    public void AddTenantMembership_ShouldAddMembership_WhenMembershipIsNotAlreadyAssigned()
     {
         // Arrange
         var user = new User("external-id-123");
-        var role = new Role("Admin");
+        var membership = new TenantMembership(Guid.NewGuid(),Guid.NewGuid());
         // Act
-        user.AddRole(role);
+        user.AddTenantMembership(membership);
         // Assert
-        Assert.Contains(role, user.Roles);
+        Assert.Contains(membership, user.TenantMemberships);
     }
 
     [Fact]
-    public void AddRole_ShouldNotAddRole_WhenRoleIsAlreadyAssigned()
+    public void AddTenantMembership_ShouldNotAddMembership_WhenMembershipIsAlreadyAssigned()
     {
         // Arrange
         var user = new User("external-id-123");
-        var role = new Role("Admin");
-        user.AddRole(role);
+        var membership = new TenantMembership(Guid.NewGuid(), Guid.NewGuid());          
+
+        user.AddTenantMembership(membership);
         // Act
-        user.AddRole(role);
+        user.AddTenantMembership(membership);
         // Assert
-        Assert.Single(user.Roles);
+        Assert.Single(user.TenantMemberships);
     }
 
     [Fact]
-    public void RemoveRole_ShouldRemoveRole_WhenRoleIsAssigned()
+    public void RemoveTenantMembership_ShouldRemoveMembership_WhenMembershipIsAssigned()
     {
         // Arrange
         var user = new User("external-id-123");
-        var role = new Role("Admin");
-        user.AddRole(role);
+        var membership = new TenantMembership(Guid.NewGuid(), Guid.NewGuid());
+        user.AddTenantMembership(membership);
         // Act
-        user.RemoveRole(role);
+        user.RemoveTenantMembership(membership);
         // Assert
-        Assert.DoesNotContain(role, user.Roles);
+        Assert.DoesNotContain(membership, user.TenantMemberships);
     }   
 
 

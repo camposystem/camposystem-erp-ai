@@ -1,32 +1,36 @@
-﻿using CampoSystem.ErpAI.Domain.Domain.Identity.Roles;
+﻿using CampoSystem.ErpAI.Domain.Identity.TenantMemberships;
 
-namespace CampoSystem.ErpAI.Domain.Domain.Identity.User;
+namespace CampoSystem.ErpAI.Domain.Identity.Users;
 
 public sealed class User : Entity
 {
     public string ExternalIdentityId { get; private set; }
 
-    private readonly List<Role> _roles = new();
+    private readonly List<TenantMembership> _tenantMemberships
+        = new();
 
-    public IReadOnlyCollection<Role> Roles => _roles.AsReadOnly();
+    public IReadOnlyCollection<TenantMembership> TenantMemberships => _tenantMemberships.AsReadOnly();
 
     public User(string externalIdentityId)
     {
         ExternalIdentityId = externalIdentityId;
     }
 
-    public void AddRole(Role role)
+    public void AddTenantMembership(TenantMembership tenantMemberships)
     {
-        if (!_roles.Contains(role))
+        var alreadyBelongsToTenant = _tenantMemberships.Any(
+           membership => membership.TenantId == tenantMemberships.TenantId);
+
+        if (!alreadyBelongsToTenant)
         {
-            _roles.Add(role);
+            _tenantMemberships.Add(tenantMemberships);
         }
     }
-    public void RemoveRole(Role role)
+    public void RemoveTenantMembership(TenantMembership tenantMemberships)
     {
-        if (_roles.Contains(role))
+        if (_tenantMemberships.Contains(tenantMemberships))
         {
-            _roles.Remove(role);
+            _tenantMemberships.Remove(tenantMemberships);
         }
     }
 

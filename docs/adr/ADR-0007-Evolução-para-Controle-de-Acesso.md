@@ -17,7 +17,7 @@ E temos a necessidade de estudar RabbitMQ sem introduzir tecnologia sem justific
 
 ## Decisão
 
-O Camposystem utilizará o Microsoft Entra ID como Identity Provider, utilizando OpenID Connect para autenticação e OAuth 2.0 para obtenção de access tokens. A API utilizará Bearer JWT para autenticar as requisições e o módulo de autorização do Camposystem será responsável pelas permissões de negócio.
+O Camposystem utilizará um Identity Provider compatível com OpenID Connect (OIDC) e OAuth 2.0 para autenticação. Auth0 Organizations será utilizado para representar a associação de identidades às organizações/empresas. O Camposystem manterá a entidade Tenant para representar o contexto empresarial e suas regras de negócio. O org_id recebido no contexto de autenticação será utilizado para resolver o Tenant correspondente, enquanto o módulo de autorização do Camposystem será responsável pelas permissões de negócio.
 
 Vamos evoluir incrementalmente:
 

@@ -1,4 +1,4 @@
-﻿namespace CampoSystem.ErpAI.Domain.Domain.Identity.Permissions;
+﻿namespace CampoSystem.ErpAI.Domain.Identity.Permissions;
 
 public sealed class Permission : Entity
 {

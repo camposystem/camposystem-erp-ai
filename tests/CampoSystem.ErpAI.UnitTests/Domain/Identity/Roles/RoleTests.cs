@@ -1,6 +1,6 @@
 ﻿
-using CampoSystem.ErpAI.Domain.Domain.Identity.Permissions;
-using CampoSystem.ErpAI.Domain.Domain.Identity.Roles;
+using CampoSystem.ErpAI.Domain.Identity.Permissions;
+using CampoSystem.ErpAI.Domain.Identity.Roles;
 
 namespace CampoSystem.ErpAI.UnitTests.Domain.Identity.Roles;
 
