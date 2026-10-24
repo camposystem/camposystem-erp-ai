@@ -1,4 +1,5 @@
-﻿using CampoSystem.ErpAI.Domain.Identity.Roles;
+﻿using CampoSystem.ErpAI.Domain.Identity.Permissions;
+using CampoSystem.ErpAI.Domain.Identity.Roles;
 using CampoSystem.ErpAI.Domain.Identity.TenantMemberships;
 using CampoSystem.ErpAI.Domain.Identity.Users;
 
@@ -36,6 +37,7 @@ public class TenantMembershipTests
         // Assert
         Assert.Contains(role, membership.Roles);
     }
+
     [Fact]
     public void AddRole_ShouldNotAddRole_WhenRoleIsAlreadyAssigned()
     {
@@ -84,6 +86,54 @@ public class TenantMembershipTests
 
         // Assert
         Assert.Single(user.TenantMemberships);
+    }
+
+    [Fact]
+    public void HasPermission_ShouldReturnTrue_WhenRoleHasPermission()
+    {
+        // Arrange
+        var membership = new TenantMembership(Guid.NewGuid(), Guid.NewGuid());
+        var role = new Role("Administrator");
+        var permission = new Permission("products.create");
+
+        role.AddPermission(permission);
+        membership.AddRole(role);
+
+        // Act
+        var hasPermission = membership.HasPermission("products.create");
+
+        // Assert
+        Assert.True(hasPermission);
+    }
+
+    [Fact]
+    public void HasPermission_ShouldReturnFalse_WhenNoRoleHasPermission()
+    {
+        // Arrange
+        var membership = new TenantMembership(Guid.NewGuid(), Guid.NewGuid());
+        var role = new Role("Viewer");
+
+        role.AddPermission(new Permission("products.list"));
+        membership.AddRole(role);
+
+        // Act
+        var hasPermission = membership.HasPermission("products.create");
+
+        // Assert
+        Assert.False(hasPermission);
+    }
+
+    [Fact]
+    public void HasPermission_ShouldReturnFalse_WhenMembershipHasNoRoles()
+    {
+        // Arrange
+        var membership = new TenantMembership(Guid.NewGuid(), Guid.NewGuid());
+
+        // Act
+        var hasPermission = membership.HasPermission("products.create");
+
+        // Assert
+        Assert.False(hasPermission);
     }
 
 }

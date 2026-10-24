@@ -6,7 +6,6 @@ public sealed class TenantMembership : Entity
 {
     public Guid UserId { get; private set; }
     public Guid TenantId { get; private set; }
-
     private readonly List<Role> _roles = new();
     public IReadOnlyList<Role> Roles => _roles.AsReadOnly();
 
@@ -22,12 +21,27 @@ public sealed class TenantMembership : Entity
         {
             _roles.Add(role);
         }
+
     }
+
     public void RemoveRole(Role role)
     {
         if (_roles.Contains(role))
         {
             _roles.Remove(role);
         }
+
     }
+
+    public bool HasPermission(string permissionName)
+    {
+        return _roles.Any(role =>
+            role.Permissions.Any(permission =>
+                string.Equals(
+                    permission.Name,
+                    permissionName,
+                    StringComparison.OrdinalIgnoreCase)));
+
+    }
+
 }
