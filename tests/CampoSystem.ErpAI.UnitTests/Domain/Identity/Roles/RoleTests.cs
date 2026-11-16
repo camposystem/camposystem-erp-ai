@@ -4,17 +4,20 @@ using CampoSystem.ErpAI.Domain.Identity.Roles;
 
 namespace CampoSystem.ErpAI.UnitTests.Domain.Identity.Roles;
 
-public  class RoleTests 
+public class RoleTests
 {
-
     [Fact]
     public void CreateRole_ShouldInitializeProperties()
     {
         // Arrange
+        var tenantId = Guid.NewGuid();
         var roleName = "Admin";
+
         // Act
-        var role = new Role(roleName);
+        var role = new Role(tenantId, roleName);
+
         // Assert
+        Assert.Equal(tenantId, role.TenantId);
         Assert.Equal(roleName, role.Name);
     }
 
@@ -22,31 +25,29 @@ public  class RoleTests
     public void AddPermission_ShouldNotAddPermission_WhenPermissionIsAlreadyAssigned()
     {
         // Arrange
-        var role = new Role("Admin");
+        var role = new Role(Guid.NewGuid(), "Admin");
         var permission = new Permission("ManageUsers");
+
         // Act
         role.AddPermission(permission);
-        
-        // Assert
-        Assert.Contains(permission, role.Permissions);
-
         role.AddPermission(permission);
 
+        // Assert
         Assert.Single(role.Permissions);
     }
 
     [Fact]
-
     public void RemovePermission_ShouldRemovePermissionFromRole()
     {
         // Arrange
-        var role = new Role("Admin");
+        var role = new Role(Guid.NewGuid(), "Admin");
         var permission = new Permission("ManageUsers");
         role.AddPermission(permission);
+
         // Act
         role.RemovePermission(permission);
+
         // Assert
         Assert.DoesNotContain(permission, role.Permissions);
     }
 }
-

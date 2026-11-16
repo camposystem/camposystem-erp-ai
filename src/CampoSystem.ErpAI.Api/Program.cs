@@ -1,53 +1,15 @@
-using Microsoft.OpenApi;
+using CampoSystem.ErpAI.Api.IoC;
 using CampoSystem.ErpAI.Api.Products.Endpoints;
-using CampoSystem.ErpAI.Application.Products.Commands.CreateProduct;
-using CampoSystem.ErpAI.Application.Products.Queries.ListProducts;
-using CampoSystem.ErpAI.Application.Products.Repositories;
-using CampoSystem.ErpAI.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
+using CampoSystem.ErpAI.Application.IoC;
+using CampoSystem.ErpAI.Infrastructure.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.Authority = builder.Configuration["Auth0:Authority"];
-        options.Audience = builder.Configuration["Auth0:Audience"];
-        options.IncludeErrorDetails = false;
-    });
-
-builder.Services.AddAuthorization();
-
-builder.Services.AddDbContext<ProductDbContext>(options =>
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("PostgreSQL")));
-
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<CreateProductCommandHandler>();
-builder.Services.AddScoped<ListProductsHandler>();
-
-builder.Services.AddOpenApi(options =>
-{
-    options.AddDocumentTransformer((document, context, cancellationToken) =>
-    {
-        document.Components ??= new OpenApiComponents();
-        document.Components.SecuritySchemes ??=
-            new Dictionary<string, IOpenApiSecurityScheme>();
-
-        document.Components.SecuritySchemes["Bearer"] =
-            new OpenApiSecurityScheme
-            {
-                Type = SecuritySchemeType.Http,
-                Scheme = "bearer",
-                BearerFormat = "JWT",
-                Description = "Access Token emitido pelo Auth0."
-            };
-
-        return Task.CompletedTask;
-    });
-});
+    .AddApi(builder.Configuration)
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
