@@ -14,13 +14,13 @@ public class ProductRepository : IProductRepository
         _dbContext = dbContext; 
     }
 
-    public Task<Product> AddAsync(Product product)
+    public async Task<Product> AddAsync(Product product)
     {
         _dbContext.Products.Add(product);
 
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
 
-        return Task.FromResult(product);
+        return product;
     }
 
     public async Task<IReadOnlyList<Product>> GetAllAsync()

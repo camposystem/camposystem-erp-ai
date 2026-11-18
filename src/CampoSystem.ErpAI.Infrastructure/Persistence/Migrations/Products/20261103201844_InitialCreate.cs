@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CampoSystem.ErpAI.Infrastructure.Persistence.Migrations
+namespace CampoSystem.ErpAI.Infrastructure.Persistence.Migrations.Products
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -11,8 +11,12 @@ namespace CampoSystem.ErpAI.Infrastructure.Persistence.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "products");
+
             migrationBuilder.CreateTable(
                 name: "Products",
+                schema: "products",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -33,7 +37,8 @@ namespace CampoSystem.ErpAI.Infrastructure.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Products",
+                schema: "products");
         }
     }
 }

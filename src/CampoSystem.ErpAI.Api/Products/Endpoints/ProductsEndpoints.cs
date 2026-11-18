@@ -22,8 +22,10 @@ public static class ProductsEndpoints
             }
 
             return Results.BadRequest(result.Errors);
-        }).Produces<CreateProductResponse>(201)
-        .Produces<IReadOnlyList<Error>>(400);
+        })
+            .RequireAuthorization("Products.Create")
+            .Produces<CreateProductResponse>(201)
+            .Produces<IReadOnlyList<Error>>(400);
     }
 
     public static void MapListProducts(WebApplication app)

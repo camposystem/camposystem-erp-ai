@@ -21,6 +21,9 @@ public sealed class ProductDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.HasDefaultSchema("products");
+
         modelBuilder.ApplyConfiguration(new ProductConfiguration());
     }
 }

@@ -9,10 +9,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace CampoSystem.ErpAI.Infrastructure.Persistence.Migrations
+namespace CampoSystem.ErpAI.Infrastructure.Persistence.Migrations.Products
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20260923204946_InitialCreate")]
+    [Migration("20261103201844_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,6 +20,7 @@ namespace CampoSystem.ErpAI.Infrastructure.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("products")
                 .HasAnnotation("ProductVersion", "10.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -55,7 +56,7 @@ namespace CampoSystem.ErpAI.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", "products");
                 });
 #pragma warning restore 612, 618
         }
