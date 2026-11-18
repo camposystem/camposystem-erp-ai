@@ -74,7 +74,11 @@ public class ProductRepositoryTests : IClassFixture<DatabaseFixture>
 
         var repository = new ProductRepository(_dbContext);
 
-        var handler = new CreateProductCommandHandler(repository);
+        var validator = new CreateProductCommandValidator();
+
+        var handler = new CreateProductCommandHandler(
+            repository,
+            validator);
 
         // Act
         var result = await handler.Handle(command);

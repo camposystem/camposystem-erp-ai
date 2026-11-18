@@ -33,4 +33,8 @@
     <Folder Include="Api\Products\Endpoints\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Domain\Identity\Roles\RoleTests.cs" />
+  </ItemGroup>
+
 </Project>

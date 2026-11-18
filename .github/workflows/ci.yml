@@ -1,3 +1,4 @@
+
 name: CI
 
 on:
@@ -13,7 +14,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     services:
@@ -22,32 +22,34 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres123
-          POSTGRES_DB: camposystem
+          POSTGRES_DB: camposystem_test
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U postgres -d camposystem"
+          --health-cmd "pg_isready -U postgres -d camposystem_test"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
 
+    env:
+      CAMPOSYSTEM_TEST_CONNECTION: "Host=localhost;Port=5432;Database=camposystem_test;Username=postgres;Password=postgres123"
+      ConnectionStrings__PostgreSQL: "Host=localhost;Port=5432;Database=camposystem_test;Username=postgres;Password=postgres123"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: true # or 'recursive'
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
 
-      - name: List repository files
-        run: find src -type f
-
       - name: Install EF Core CLI
-        run: dotnet tool install --global dotnet-ef --version 10.0.3
-        
+        run: dotnet tool install --global dotnet-ef --version 10.0.4
+
+      - name: Add .NET tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+
       - name: Restore
         run: dotnet restore
 
@@ -57,11 +59,23 @@ jobs:
       - name: EF Info
         run: dotnet ef --version
 
-      - name: SDK Info
-        run: dotnet --info
+      - name: Apply Identity migrations
+        run: >
+          dotnet ef database update
+          --context IdentityDbContext
+          --project src/CampoSystem.ErpAI.Infrastructure
+          --startup-project src/CampoSystem.ErpAI.Api
+          --configuration Release
+          --no-build
 
-      - name: Apply database migrations
-        run: dotnet ef database update --project src/CampoSystem.ErpAI.Infrastructure --startup-project src/CampoSystem.ErpAI.Api --configuration Release --no-build --verbose
+      - name: Apply Products migrations
+        run: >
+          dotnet ef database update
+          --context ProductDbContext
+          --project src/CampoSystem.ErpAI.Infrastructure
+          --startup-project src/CampoSystem.ErpAI.Api
+          --configuration Release
+          --no-build
 
       - name: Test
         run: dotnet test --no-build --configuration Release
