@@ -2,15 +2,17 @@
 
 ![CI](https://github.com/camposystem/camposystem-erp-ai/actions/workflows/ci.yml/badge.svg)
 
-> ERP moderno desenvolvido em .NET 10, com foco em arquitetura limpa, segurança, organização de domínio e boas práticas de Engenharia de Software.
+### Engenharia de Software, Arquitetura e Soluções SaaS
 
-## Sobre o projeto
+O **CampoSystem ERP AI** é um projeto de engenharia de software que demonstra, na prática, a construção e evolução de soluções empresariais utilizando tecnologias modernas do ecossistema .NET.
 
-O **CampoSystem ERP AI** é um projeto de desenvolvimento de um ERP utilizando tecnologias do ecossistema .NET.
+O projeto reúne experiências práticas em arquitetura de software, Domain-Driven Design, segurança, persistência de dados, autenticação, autorização e testes automatizados.
 
-O objetivo é demonstrar, na prática, a aplicação de conceitos de arquitetura de software, Domain-Driven Design, persistência de dados, autenticação, autorização e testes automatizados.
+Sua evolução é conduzida de forma incremental, por meio de Sprints, requisitos funcionais e decisões arquiteturais documentadas.
 
-O projeto evolui de forma incremental, por meio de Sprints e decisões arquiteturais documentadas.
+## Propósito
+
+Demonstrar a aplicação de boas práticas de Engenharia de Software na construção de soluções empresariais, com foco em organização de domínio, qualidade técnica, segurança e evolução sustentável.
 
 ## Arquitetura
 
@@ -38,6 +40,20 @@ A solução utiliza:
 | Testes de integração | PostgreSQL / Respawn |
 | CI | GitHub Actions |
 | Gestão do projeto | Azure DevOps |
+
+## Experiência prática em engenharia
+
+O desenvolvimento contempla:
+
+- Modelagem de domínio e Value Objects.
+- Construção de APIs REST.
+- Persistência de dados com Entity Framework Core.
+- Autenticação e autorização.
+- Multi-tenancy.
+- Controle de acesso baseado em permissões.
+- Testes unitários e de integração.
+- Documentação de decisões arquiteturais.
+- Evolução incremental por Sprints.
 
 ## Segurança e controle de acesso
 
@@ -74,7 +90,7 @@ O relacionamento entre usuários, empresas e permissões permite controlar o ace
 | Usuário autenticado com `products.create` | 201 Created |
 | Consulta de produtos | 200 OK |
 
-Os resultados acima foram validados durante os testes e as chamadas reais pelo Postman.
+Os resultados foram validados durante os testes e as chamadas reais pelo Postman.
 
 ## Estrutura da solução
 
@@ -102,7 +118,7 @@ O projeto utiliza testes unitários e de integração.
 
 Os testes de integração utilizam PostgreSQL e Respawn para preparar e limpar os dados de teste, mantendo os históricos de migrations.
 
-Para executar os testes:
+Para executar:
 
 ```bash
 dotnet test
@@ -129,7 +145,6 @@ cd camposystem-erp-ai
 
 ```bash
 dotnet restore
-
 dotnet build
 ```
 
@@ -172,17 +187,27 @@ O fluxo de desenvolvimento utiliza:
 
 As decisões arquiteturais são registradas em documentos ADR.
 
-Decisões documentadas:
+Decisão documentada:
 
 - ADR-0001 — Arquitetura Inicial
 
 Novas decisões são adicionadas conforme a evolução da solução.
 
-## Roadmap
+## Ecossistema Camposystem
 
-O projeto evolui de forma incremental.
+### Camposystem Stock
 
-Próximas etapas serão definidas conforme as necessidades funcionais e arquiteturais identificadas durante o desenvolvimento.
+O **Camposystem Stock** é uma iniciativa de produto SaaS da Camposystem, voltada à gestão de estoque, armazenagem, movimentações e rastreabilidade.
+
+Seu desenvolvimento representa a evolução da experiência de engenharia aplicada em soluções empresariais para um produto comercial especializado.
+
+O Camposystem Stock possui estratégia de desenvolvimento e repositório próprios, com código-fonte comercial mantido em ambiente privado.
+
+## Roadmap e evolução
+
+O projeto evolui de forma incremental, com entregas organizadas por Sprints.
+
+A evolução contempla arquitetura, domínio, APIs, segurança, persistência, testes e documentação técnica.
 
 ## Status do projeto
 
@@ -192,7 +217,7 @@ Próximas etapas serão definidas conforme as necessidades funcionais e arquitet
 - Sprint 5 — Controle de Acesso: implementação funcional e testes principais validados.
 - T07 — Documentação e revisão: em fechamento.
 
-## Princípios do projeto
+## Princípios de engenharia
 
 - Entender antes de implementar.
 - Adicionar tecnologias quando resolverem problemas reais.
@@ -205,11 +230,17 @@ Próximas etapas serão definidas conforme as necessidades funcionais e arquitet
 
 **Alexandre de Campos**
 
-Desenvolvedor Backend .NET
+Desenvolvedor Backend .NET | Engenharia de Software
 
 - LinkedIn: https://linkedin.com/in/alexandre-camposystem
 - GitHub: https://github.com/camposystem
 
-## Licença
+## Direitos autorais e propriedade intelectual
 
-Este projeto está licenciado sob a licença MIT.
+© 2026 Camposystem. Todos os direitos reservados.
+
+Este repositório é disponibilizado publicamente para fins de demonstração técnica, estudo e apresentação de arquitetura de software.
+
+A disponibilização pública do código não representa concessão de licença para utilização comercial, reprodução, modificação ou redistribuição, salvo autorização expressa do titular dos direitos.
+
+**Camposystem — Engineering & SaaS Solutions**
